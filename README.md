@@ -6,15 +6,27 @@
 3. React Memo 
 4. React Refs 
 5. Higher-Order Components
- 
+6. Error boundaries
+7. Controlled components 
+8. Synthetic events
      ...
 
 I. React Router
+
 II. Redux  
 
 
 ### Difference between 
 1. Typescript and Javascript
+2. Declarative vs Imperative Programming
+
+
+## Interview Questions
+A. https://github.com/sudheerj/reactjs-interview-questions
+B. https://www.fullstack.cafe/blog/react-js-interview-questions
+
+1. Why browsers cannot read JSX?
+2. In ReactJS, why there is a need to capitalize on the components?
 
 <hr/>
 
@@ -123,6 +135,22 @@ A class component becomes an error boundary if it defines either (or both) of th
 ```Reference : https://www.digitalocean.com/community/tutorials/react-error-boundaries```
 
 ```https://www.smashingmagazine.com/2020/06/react-error-handling-reporting-error-boundary-sentry/```
+
+
+## Controlled components 
+
+There are components in the ReactJS that maintain their own internal state. They are basically considered as uncontrolled components. On the other side, the components which don’t maintain any internal state are considered as controlled components in ReactJS. Controlled components can easily be controlled by several methods. Most of the React components are controlled components.
+
+In HTML, form elements such as <input>, <textarea>, and <select> typically maintain their own state and update it based on user input. When a user submits a form the values from the aforementioned elements are sent with the form. With React it works differently. The component containing the form will keep track of the value of the input in it's state and will re-render the component each time the callback function e.g. onChange is fired as the state will be updated. A form element whose value is controlled by React in this way is called a "controlled component".
+With a controlled component, every state mutation will have an associated handler function. This makes it straightforward to modify or validate user input.
+ 
+- A Controlled Component is one that takes its current value through props and notifies changes through callbacks like onChange. A parent component “controls” it by handling the callback and managing its own state and passing the new values as props to the controlled component. You could also call this a “dumb component”.
+- A Uncontrolled Component is one that stores its own state internally, and you query the DOM using a ref to find its current value when you need it. This is a bit more like traditional HTML.
+
+##  Synthetic events
+
+```Refer : https://radiant-brushlands-42789.herokuapp.com/medium.com/better-programming/an-intro-to-events-in-react-47a6a621b031```
+React makes use of its own event system to provide cross-browser compatibility. To do this, React wraps native browser events in its own structure called a SyntheticEvent and passes them to React event handlers.
 
 <br/>
 
@@ -258,3 +286,73 @@ Essentially, all your JavaScript code is also valid in Typescript – that means
 
 TypeScript code is not understandable by the browsers. Thats why if the code is written in TypeScript then it is compiled and converted the code i.e. translate the code into JavaScript.The above process is known as Trans-piled. By the help of JavaScript code, browsers are able to read the code and display.
 ![Screenshot](https://user-images.githubusercontent.com/43414928/97773288-633c8900-1b74-11eb-94ad-2ee37528f010.png)
+
+
+### 2.  Declarative vs Imperative Programming
+
+Declarative Programming is like asking your friend to draw a landscape. You don’t care how they draw it, that’s up to them.
+Imperative Programming is like your friend listening to Bob Ross tell them how to paint a landscape. While good ole Bob Ross isn’t exactly commanding, he is giving them step by step directions to get the desired result.
+
+In an imperative world, we'd tell them to open the can of paint, dip their brush in it, and then move the brush in a stroking fashion along the wall. We'd be telling the painter exactly what to do.
+
+In a declarative world, we would tell the painter "I want a house with a big ol' cartoon house horrendously smeared across the side of it...Oh! And I've had a tough week so make my day while doing it...", and she'd get it done! Why? Because the painter knows what to do! We don't need to tell her how to apply paint or how to get in and out of costume.
+
+- Declarative programming focuses on the WHAT rather than the HOW. Declarative programming is much more driven by the result and describing this end result rather than the step by step process of getting to the result. This is opposed to imperative programming which is much more instructional and cares about the step by step process
+- Declarative programming is a programming paradigm  that expresses the logic of a computation without describing its control flow. Imperative programming is a programming paradigm that uses statements that change a program’s state.
+- 
+
+Imperative example
+```
+const container = document.getElementById(‘container’);
+const btn = document.createElement(‘button’);
+btn.className = ‘btn red’;
+btn.onclick = function(event) {
+ if (this.classList.contains(‘red’)) {
+   this.classList.remove(‘red’);
+   this.classList.add(‘blue’);
+ } else {
+   this.classList.remove(‘blue’);
+   this.classList.add(‘red’);
+ }
+};
+container.appendChild(btn);
+```
+
+Declarative example
+```
+class Button extends React.Component{
+  this.state = { color: 'red' }
+  handleChange = () => {
+    const color = this.state.color === 'red' ? 'blue' : 'red';
+    this.setState({ color });
+  }
+  render() {
+    return (<div>
+      <button 
+         className=`btn ${this.state.color}`
+         onClick={this.handleChange}>
+      </button>
+    </div>);
+  }
+}
+
+```
+
+
+
+The differences here may be subtle. We still have logic that says if red then blue, but there’s one huge difference. The React example never actually touches an element. it simply declares an element should be rendered given our current state. It does not actually manipulate the DOM itself.
+When writing React, it’s often good not to think of how you want to accomplish a result, but instead what the component should look like in it’s new state. This sets us up for a good control flow where state goes through a series of predictable and replicable mutations
+
+<br/ >
+<br/>
+
+## Interview Questions
+
+**Why browsers cannot read JSX?**
+
+Actually, JSX is not considered as a proper JavaScript. Browsers cannot read them simply. There is always a need to compile the files that contain JavaScript Code. This is usually done with the help of JSX compiler which performs its task prior to file entering the browser. Also, compiling is not possible in every case. It depends on a lot of factors such as the source or nature of file or data.
+
+
+**In ReactJS, why there is a need to capitalize on the components?**
+
+It is necessary because components are not the DOM element but they are constructors. If they are not capitalized, they can cause various issues and can confuse developers with several elements. At the same time, the problem of integration of some elements and commands can be there.
